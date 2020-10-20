@@ -13,16 +13,16 @@ export class CoursesService {
       {
         id: '1',
         title: 'A',
-        creationDate: '1',
-        duration: 30,
-        description: 'A'
+        creationDate: '2020-10-01',
+        duration: '30min',
+        description: 'Angular basic course'
       },
       {
         id: '2',
         title: 'B',
-        creationDate: '1',
-        duration: 30,
-        description: 'B'
+        creationDate: '2020-10-01',
+        duration: '30min',
+        description: 'Angular advanced course'
       }
     ]
   }
