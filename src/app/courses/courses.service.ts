@@ -24,6 +24,6 @@ export class CoursesService {
         duration: '30min',
         description: 'Angular advanced course'
       }
-    ]
+    ];
   }
 }

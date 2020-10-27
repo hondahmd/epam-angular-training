@@ -26,10 +26,13 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('angular-training');
   });
 
-  it('should render title', () => {
+  it('should include necessary components', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-training app is running!');
+    expect(compiled.querySelector('courses-header')).toBeTruthy();
+    expect(compiled.querySelector('courses-breadcrumbs')).toBeTruthy();
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+    expect(compiled.querySelector('courses-footer')).toBeTruthy();
   });
 });

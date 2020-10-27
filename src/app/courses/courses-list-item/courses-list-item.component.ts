@@ -7,7 +7,7 @@ import { CourseListItem } from '../courses-list/courses-list-item-model';
   styleUrls: ['./courses-list-item.component.scss']
 })
 export class CoursesListItemComponent implements OnInit {
-  @Input() item: CourseListItem
+  @Input() item: CourseListItem;
 
   @Output() deleteCourseEvent = new EventEmitter<string>();
 

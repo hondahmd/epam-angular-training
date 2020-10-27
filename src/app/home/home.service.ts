@@ -13,6 +13,6 @@ export class HomeService {
       id: '111',
       firstName: 'Honda',
       lastName: 'Hong'
-    }
+    };
   }
 }
