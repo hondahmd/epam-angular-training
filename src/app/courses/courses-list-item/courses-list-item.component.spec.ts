@@ -12,7 +12,7 @@ describe('CoursesListItemComponent', () => {
     creationDate: '1-1',
     duration: '10',
     description: 'test',
-  }
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

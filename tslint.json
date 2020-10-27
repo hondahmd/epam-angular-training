@@ -140,12 +140,14 @@
       true,
       "attribute",
       "app",
+      "courses",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
       "app",
+      "courses",
       "kebab-case"
     ]
   }

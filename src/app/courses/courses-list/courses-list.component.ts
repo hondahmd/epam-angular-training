@@ -16,11 +16,11 @@ export class CoursesListComponent implements OnInit {
     this.courseItems = this.coursesService.getItems();
   }
 
-  deleteCourse(courseId: string) {
+  deleteCourse(courseId: string): void {
     console.log('delete: ', courseId);
   }
 
-  handleLoadMore() {
+  handleLoadMore(): void {
     console.log('load more');
   }
 }

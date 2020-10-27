@@ -13,11 +13,11 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onKey(event: any) {
+  onKey(event: any): void {
     this.input = event.target.value;
   }
 
-  onClick() {
+  onClick(): void {
     console.log(this.input);
   }
 }

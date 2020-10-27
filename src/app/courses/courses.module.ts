@@ -10,7 +10,14 @@ import { CourseSectionComponent } from './course-section/course-section.componen
 
 
 @NgModule({
-  declarations: [CoursesComponent, SearchComponent, AddCourseComponent, CoursesListComponent, CoursesListItemComponent, CourseSectionComponent],
+  declarations: [
+    CoursesComponent,
+    SearchComponent,
+    AddCourseComponent,
+    CoursesListComponent,
+    CoursesListItemComponent,
+    CourseSectionComponent
+  ],
   imports: [
     CommonModule
   ],

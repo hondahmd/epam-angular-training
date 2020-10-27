@@ -45,7 +45,7 @@ describe('CoursesListComponent', () => {
 
   it('should not have items after construction', () => {
     expect(comp.courseItems.length).toBe(0);
-  })
+  });
 
   it('should have one item after ngOnInit', () => {
     comp.ngOnInit();
@@ -53,5 +53,5 @@ describe('CoursesListComponent', () => {
 
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('courses-courses-list-item')).toBeTruthy();
-  })
+  });
 });
