@@ -1,8 +1,11 @@
-<div class="col">
+<div class="col" *ngIf="showCourses">
   <courses-courses-list-item *ngFor="let item of courseItems" [item]="item" (deleteCourseEvent)="deleteCourse($event)"></courses-courses-list-item>
   <div class="card mt-3 bg-white pt-1 pb-1">
     <a class="row justify-content-center" (click)="handleLoadMore()">
       LOAD MORE
     </a>
   </div>
+</div>
+<div *ngIf="!showCourses">
+  <p>No Data</p>
 </div>

@@ -1,0 +1,20 @@
+@mixin basic-border {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.green-border {
+  border-color: green;
+
+  @include basic-border();
+}
+
+.blue-border {
+  border-color: blue;
+
+  @include basic-border();
+}
+
+.stared-background {
+  background-color: green;
+}

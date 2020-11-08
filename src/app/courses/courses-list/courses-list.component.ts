@@ -1,19 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../courses.service';
 import { CourseListItem } from './courses-list-item-model';
+import { OrderByPipe } from './order-by.pipe';
 
 @Component({
   selector: 'courses-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.scss']
+  styleUrls: ['./courses-list.component.scss'],
+  providers: [OrderByPipe]
 })
 export class CoursesListComponent implements OnInit {
   public courseItems: CourseListItem[] = [];
 
-  constructor(private coursesService: CoursesService) { }
+  showCourses: boolean;
+
+  constructor(
+    private coursesService: CoursesService,
+    private orderByPipe: OrderByPipe
+  ) { }
 
   ngOnInit(): void {
-    this.courseItems = this.coursesService.getItems();
+    this.coursesService.updateCourseItems.subscribe(
+      (val) => {
+        this.courseItems = val;
+        this.showCourses = val.length > 0;
+      }
+    )
+    this.courseItems = this.orderByPipe.transform(this.coursesService.getItems());
   }
 
   deleteCourse(courseId: string): void {

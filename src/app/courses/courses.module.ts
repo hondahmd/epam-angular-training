@@ -6,6 +6,9 @@ import { AddCourseComponent } from './add-course/add-course.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
 import { CourseSectionComponent } from './course-section/course-section.component';
+import { DuraionPipe } from './courses-list-item/duraion.pipe';
+import { OrderByPipe } from './courses-list/order-by.pipe';
+import { FilterPipe } from './search/filter.pipe';
 
 
 
@@ -16,7 +19,10 @@ import { CourseSectionComponent } from './course-section/course-section.componen
     AddCourseComponent,
     CoursesListComponent,
     CoursesListItemComponent,
-    CourseSectionComponent
+    CourseSectionComponent,
+    DuraionPipe,
+    OrderByPipe,
+    FilterPipe
   ],
   imports: [
     CommonModule
