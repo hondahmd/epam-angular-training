@@ -27,14 +27,7 @@ export class CoursesListItemComponent implements OnInit {
   }
 
   setContainerClass() {
-    const current = new Date();
-    const today = new Date(current.getFullYear(), current.getMonth(), current.getUTCDate());
-    const courseDate = new Date(this.item.creationDate);
-    const oneDay = 86400000;
-    const duration = Number(((today.valueOf() - courseDate.valueOf()) / oneDay).toFixed(0));
     this.containerClass = {
-      'green-border': duration > 0 && duration <= 14,
-      'blue-border': duration < 0,
       'stared-background': this.item.stared,
     }
   }

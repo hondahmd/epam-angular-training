@@ -9,6 +9,7 @@ import { CourseSectionComponent } from './course-section/course-section.componen
 import { DuraionPipe } from './courses-list-item/duraion.pipe';
 import { OrderByPipe } from './courses-list/order-by.pipe';
 import { FilterPipe } from './search/filter.pipe';
+import { BorderDirective } from './courses-list-item/border.directive';
 
 
 
@@ -22,7 +23,8 @@ import { FilterPipe } from './search/filter.pipe';
     CourseSectionComponent,
     DuraionPipe,
     OrderByPipe,
-    FilterPipe
+    FilterPipe,
+    BorderDirective
   ],
   imports: [
     CommonModule
