@@ -37,12 +37,38 @@ export class CoursesService {
 
   constructor() { }
 
-  updateItems(initVals): void {
-    this.courseItems = initVals;
-    this.updateCourseItems.next(initVals);
+  updateItems(newItems): void {
+    this.courseItems = newItems;
+    this.updateCourseItems.next(newItems);
   }
 
   getItems(): CourseListItem[] {
     return this.courseItems;
+  }
+
+  getItemById(id): CourseListItem {
+    return this.courseItems.filter((item) => item.id === id)[0];
+  }
+
+  createItem(info): void {
+    const newItems = [...this.courseItems];
+    newItems.push(info);
+    this.updateItems(newItems);
+  }
+
+  updateItem(newInfo): void {
+    const newItems = this.courseItems.map((item) => {
+      if (item.id === newInfo.id) {
+        return newInfo;
+      } else {
+        return item;
+      }
+    });
+    this.updateItems(newItems);
+  }
+
+  deleteItem(id): void {
+    const newItems = this.courseItems.filter((item) => item.id !== id);
+    this.updateItems(newItems);
   }
 }

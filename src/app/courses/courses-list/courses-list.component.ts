@@ -10,14 +10,18 @@ import { OrderByPipe } from './order-by.pipe';
   providers: [OrderByPipe]
 })
 export class CoursesListComponent implements OnInit {
-  public courseItems: CourseListItem[] = [];
-
-  showCourses: boolean;
-
   constructor(
     private coursesService: CoursesService,
     private orderByPipe: OrderByPipe
   ) { }
+
+  public courseItems: CourseListItem[] = [];
+
+  showCourses: boolean;
+
+  showDeleteModal: boolean;
+
+  deleteCourseId: string;
 
   ngOnInit(): void {
     this.coursesService.updateCourseItems.subscribe(
@@ -29,8 +33,19 @@ export class CoursesListComponent implements OnInit {
     this.courseItems = this.orderByPipe.transform(this.coursesService.getItems());
   }
 
+  toggleModal(): void {
+    this.showDeleteModal = !this.showDeleteModal;
+  }
+
+  saveDeleteCouseId(courseId: string): void {
+    this.toggleModal();
+    this.deleteCourseId = courseId;
+  }
+
   deleteCourse(courseId: string): void {
     console.log('delete: ', courseId);
+    this.toggleModal();
+    this.coursesService.deleteItem(courseId);
   }
 
   handleLoadMore(): void {

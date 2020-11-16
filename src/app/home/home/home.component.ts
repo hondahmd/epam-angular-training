@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../home.service';
-import { UserData } from '../user-model';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'courses-home',
@@ -8,16 +7,29 @@ import { UserData } from '../user-model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public userData: UserData = {
-    id: '',
-    firstName: '',
-    lastName: ''
-  };
 
-  constructor(private homeService: HomeService) { }
+  constructor(private authService: AuthService) { }
+
+  userName: string;
+
+  password: string;
 
   ngOnInit(): void {
-    this.userData = this.homeService.getItems();
+  }
+
+  handleInput(event): void {
+    console.log(event.target.value);
+    this[event.target.id] = event.target.value;
+  }
+
+  handleLogin(): void {
+    this.authService.login({
+      name: this.userName,
+      password: this.password,
+      id: '111',
+      token: '111',
+    })
+    console.log('loged in successfully');
   }
 
 }
