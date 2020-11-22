@@ -7,7 +7,7 @@ import { CourseListItem } from './courses-list/courses-list-item-model';
 })
 export class CoursesService {
   updateCourseItems: Subject<CourseListItem[]> = new Subject<CourseListItem[]>();
-  courseItems: CourseListItem[];
+  courseItems: CourseListItem[] = [];
   initVals: CourseListItem[] = [
     {
       id: '1',
@@ -43,6 +43,7 @@ export class CoursesService {
   }
 
   getItems(): CourseListItem[] {
+    console.log(this.courseItems);
     return this.courseItems;
   }
 

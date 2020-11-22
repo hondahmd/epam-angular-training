@@ -1,0 +1,5 @@
+<div class="form-group">
+  <label for="duration">Duration:</label>
+  <input type="text" class="form-control col-3" id="duration" (keyup)="handleInput($event)">
+</div>
+<p>{{this.duration | duration}}</p>

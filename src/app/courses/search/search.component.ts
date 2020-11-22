@@ -26,8 +26,7 @@ export class SearchComponent implements OnInit {
   }
 
   onClick(): void {
-    console.log(this.input);
-    const filteredItems = this.filterPipe.transform(this.coursesService.initVals, this.input);
+    const filteredItems = this.filterPipe.transform(this.coursesService.courseItems, this.input);
     this.coursesService.updateItems(filteredItems);
   }
 }
