@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { CoursesService } from './courses/courses.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +7,4 @@ import { CoursesService } from './courses/courses.service';
 })
 export class AppComponent {
   title = 'angular-training';
-
-  constructor(private coursesService: CoursesService) { }
-
-  ngOnInit(): void {
-    console.log('init');
-    this.coursesService.updateItems(this.coursesService.initVals);
-  }
 }

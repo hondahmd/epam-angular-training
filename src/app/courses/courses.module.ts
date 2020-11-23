@@ -1,37 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CoursesComponent } from './courses/courses.component';
-import { SearchComponent } from './search/search.component';
-import { AddCourseComponent } from './add-course/add-course.component';
-import { CoursesListComponent } from './courses-list/courses-list.component';
-import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
-import { CourseSectionComponent } from './course-section/course-section.component';
-import { OrderByPipe } from './courses-list/order-by.pipe';
-import { FilterPipe } from './search/filter.pipe';
-import { BorderDirective } from './courses-list-item/border.directive';
-import { PipesModule } from '../pipes/pipes.module';
+import { SearchComponent } from './components/search/search.component';
+import { CoursesListComponent } from './components/courses-list/courses-list.component';
+import { CoursesListItemComponent } from './components/courses-list-item/courses-list-item.component';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { BorderDirective } from './directives/border/border.directive';
+import {SharedModule} from '../shared/shared.module';
+import {FormsModule} from '@angular/forms';
+import {CourseFormComponent} from './components/course-form/course-form.component';
 
 
 @NgModule({
   declarations: [
-    CoursesComponent,
     SearchComponent,
-    AddCourseComponent,
     CoursesListComponent,
     CoursesListItemComponent,
-    CourseSectionComponent,
     OrderByPipe,
     FilterPipe,
-    BorderDirective
+    BorderDirective,
+    CourseFormComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    PipesModule
+    FormsModule,
+    SharedModule,
   ],
   exports: [
-    CoursesComponent
   ]
 })
 export class CoursesModule { }

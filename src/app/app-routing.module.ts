@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoursesComponent } from './courses/courses/courses.component';
-import { HomeComponent } from './home/home/home.component';
-import { AddCoursePageComponent } from './add-course/page/page.component';
+import { HomeComponent } from './core/components/home/home.component';
+import {LoginComponent} from './auth/components/login/login.component';
+import {CoursesListComponent} from './courses/components/courses-list/courses-list.component';
+import {CourseFormComponent} from './courses/components/course-form/course-form.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'courses', component: CoursesComponent },
-  { path: 'addcourse', component: AddCoursePageComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      {path: '', redirectTo: 'courses', pathMatch: 'full'},
+      { path: 'courses', component: CoursesListComponent },
+      { path: 'courses/add', component: CourseFormComponent },
+      { path: 'courses/:id/edit', component: CourseFormComponent },
+    ]
+  },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

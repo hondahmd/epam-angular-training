@@ -5,9 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CoursesModule } from './courses/courses.module';
-import { HomeModule } from './home/home.module';
-import { AddCourseModule } from './add-course/add-course.module';
-import { PipesModule } from './pipes/pipes.module';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +16,7 @@ import { PipesModule } from './pipes/pipes.module';
     AppRoutingModule,
     CoreModule,
     CoursesModule,
-    HomeModule,
-    AddCourseModule,
-    PipesModule
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
