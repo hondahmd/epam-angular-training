@@ -1,39 +1,43 @@
 import { Injectable } from '@angular/core';
 import { CourseInterface } from '../models/course-interface';
-import {coursesData} from '../courses-data';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  private items = coursesData; //Initial value
-
-  getItems(): CourseInterface[] {
-    return this.items;
+  constructor(private http: HttpClient) {
   }
 
-  getItemById(id: string): CourseInterface {
-    return this.items.find(item => item.id === id);
+  getItems(count: number, textFragment?: string): Observable<CourseInterface[]> {
+    const params: {[param: string]: string} = {
+      count: count + '',
+      textFragment: textFragment || '', //this excludes 'null' or 'undefined' values
+      sort: 'date',
+    };
+    return this.http
+      .get<CourseInterface[]>(environment.apiUrl + '/courses', {params});
   }
 
-  createItem(data: CourseInterface) {
-    let maxId = 0;
-    this.items.forEach(item => {
-      if (+item.id > maxId) {
-        maxId = +item.id;
-      }
-    });
-    data.id = (maxId + 1) + '';
-    const newItems = [...this.items];
-    newItems.push(data);
-    this.items = newItems;
+  getItemById(id: number): Observable<CourseInterface> {
+    return this.http
+      .get<CourseInterface>(environment.apiUrl + '/courses/' + id);
   }
 
-  updateItem(data: CourseInterface) {
-    this.items = this.items.map(item => item.id === data.id ? data : item);
+  createItem(data: CourseInterface): Observable<CourseInterface> {
+    return this.http
+      .post<CourseInterface>(environment.apiUrl + '/courses', data);
   }
 
-  deleteItem(id: string) {
-    this.items = this.items.filter(item => item.id !== id);
+  updateItem(data: CourseInterface): Observable<CourseInterface> {
+    return this.http
+      .patch<CourseInterface>(environment.apiUrl + '/courses/' + data.id, data);
+  }
+
+  deleteItem(id: number): Observable<void> {
+    return this.http
+      .delete<void>(environment.apiUrl + '/courses/' + id);
   }
 }

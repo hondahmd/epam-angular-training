@@ -2,11 +2,11 @@
 <app-breadcrumbs [items]="breadcrumbs"></app-breadcrumbs>
 
 <div class="col bg-light pt-4" style="min-height: 80vh;">
-  <h2>New Course</h2>
+  <h2>{{title}}</h2>
   <div>
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" [(ngModel)]="model.title">
+      <input type="text" class="form-control" id="title" [(ngModel)]="model.name">
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
@@ -14,12 +14,13 @@
     </div>
     <div class="form-group">
       <label for="duration">Duration:</label>
-      <input type="number" min="0" step="10" class="form-control col-3" id="duration" [(ngModel)]="model.duration">
+      <input type="number" min="0" step="10" class="form-control col-3" id="duration" [(ngModel)]="model.length">
     </div>
     <div class="form-group">
       <label for="date">Date:</label>
-      <input type="date" class="form-control col-3" id="date" [(ngModel)]="model.creationDate">
+      <input type="date" class="form-control col-3" id="date" [(ngModel)]="model.date">
     </div>
+    <div *ngIf="error" class="alert alert-danger" role="alert">{{error}}</div>
     <div class="row justify-content-end">
       <button type="button" class="btn bg-secondary text-body mr-3" (click)="handleCancel()">
         Cancel
@@ -32,3 +33,4 @@
 </div>
 
 <app-footer></app-footer>
+<app-mute *ngIf="loading" [fixed]="true"></app-mute>

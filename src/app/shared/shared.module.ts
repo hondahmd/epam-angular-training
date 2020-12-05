@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import {RouterModule} from '@angular/router';
 import {DurationPipe} from './pipes/duration.pipe';
+import {MuteComponent} from './components/loading/mute.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import {DurationPipe} from './pipes/duration.pipe';
     FooterComponent,
     BreadcrumbsComponent,
     DurationPipe,
+    MuteComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import {DurationPipe} from './pipes/duration.pipe';
     FooterComponent,
     BreadcrumbsComponent,
     DurationPipe,
+    MuteComponent,
   ]
 })
 export class SharedModule { }

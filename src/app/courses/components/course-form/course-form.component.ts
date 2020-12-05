@@ -9,19 +9,25 @@ import {CoursesService} from '../../services/courses.service';
   styleUrls: ['./course-form.component.scss']
 })
 export class CourseFormComponent implements OnInit {
-  breadcrumbs: BreadcrumbInterface[] = [
-    {text: 'Courses', routerLink: '/courses'},
-    {text: 'New'}
-  ];
+  breadcrumbs: BreadcrumbInterface[];
+
+  loading = false;
+
+  error: string;
 
   model: CourseInterface = {
     id: null,
-    title: '',
-    creationDate: '',
-    duration: null,
+    name: '',
+    date: '',
+    length: null,
     description: '',
-    stared: false,
+    isTopRated: false,
+    authors: null,
   };
+
+  get title(): string {
+    return this.model.id ? 'Edit Course' : 'New Course';
+  }
 
   constructor(
     private router: Router,
@@ -30,15 +36,36 @@ export class CourseFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id'); //Param from path (:id)
+    this.updateBreadcrumbs();
+    const id = +this.route.snapshot.paramMap.get('id'); //Param from path (:id)
     if (id) {
-      const model = this.service.getItemById(id);
-      if (model) {
-        //Edit mode
-        this.model = {...model}; // Clone so as not to change the data in the service
-        this.breadcrumbs[1].text = 'Edit';
-      }
+      this.load(id);
     }
+  }
+
+  private load(id: number) {
+    this.error = null;
+    this.loading = true;
+    this.service
+      .getItemById(id)
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.model = data;
+          this.updateBreadcrumbs();
+        },
+        error => {
+          this.loading = false;
+          this.error = error?.message || 'Error';
+        }
+      );
+  }
+
+  private updateBreadcrumbs() {
+    this.breadcrumbs = [
+      {text: 'Courses', routerLink: '/courses'},
+      {text: this.title}
+    ];
   }
 
   handleCancel() {
@@ -46,13 +73,26 @@ export class CourseFormComponent implements OnInit {
   }
 
   handleSave() {
-    const data = {...this.model};
-    if (data.id) {
-      this.service.updateItem(data);
-    } else {
-      this.service.createItem(data);
-    }
-    this.gotoCourses();
+    let obs = this.model.id
+      ? this.service.updateItem(this.model)
+      : this.service.createItem(this.model);
+
+    this.error = null;
+    this.loading = true;
+    obs
+      .subscribe(
+        data => {
+          this.loading = false;
+
+          this.model = data; //New value
+          this.updateBreadcrumbs(); //Is editing now
+          this.gotoCourses(); //Or you can stay on the this page. This case is correctly also.
+        },
+        error => {
+          this.loading = false;
+          this.error = error?.message || 'Error';
+        }
+      );
   }
 
   private gotoCourses() {

@@ -4,12 +4,11 @@ import { RouterModule } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
 import { CoursesListItemComponent } from './components/courses-list-item/courses-list-item.component';
-import { OrderByPipe } from './pipes/order-by.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
 import { BorderDirective } from './directives/border/border.directive';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
 import {CourseFormComponent} from './components/course-form/course-form.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -17,8 +16,6 @@ import {CourseFormComponent} from './components/course-form/course-form.componen
     SearchComponent,
     CoursesListComponent,
     CoursesListItemComponent,
-    OrderByPipe,
-    FilterPipe,
     BorderDirective,
     CourseFormComponent
   ],
@@ -26,6 +23,7 @@ import {CourseFormComponent} from './components/course-form/course-form.componen
     CommonModule,
     RouterModule,
     FormsModule,
+    HttpClientModule,
     SharedModule,
   ],
   exports: [

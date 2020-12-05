@@ -10,7 +10,7 @@ import { CourseInterface } from '../../models/course-interface';
 export class CoursesListItemComponent implements OnInit {
   @Input() item: CourseInterface;
 
-  @Output() deleteCourseEvent = new EventEmitter<string>();
+  @Output() deleteCourseEvent = new EventEmitter<number>();
 
   constructor() { }
 
