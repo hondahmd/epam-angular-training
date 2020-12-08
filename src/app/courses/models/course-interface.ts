@@ -7,14 +7,15 @@ export interface CourseInterface {
   duration: number;
   description: string;
   stared: boolean;
+  authors: AuthorInterface;
 }
 
 export interface BECoursesInterface {
-  id: number,
-  name: string,
-  date: string,
-  length: number,
-  description: string,
-  authors: AuthorInterface,
-  isTopRated: boolean,
+  id: number;
+  name: string;
+  date: string;
+  length: number;
+  description: string;
+  authors: AuthorInterface;
+  isTopRated: boolean;
 }

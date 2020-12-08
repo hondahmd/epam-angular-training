@@ -32,14 +32,15 @@ export class CoursesListComponent implements OnInit {
     this.coursesService
       .getItems(this.countOfCourses, this.filter)
       .subscribe(
-        data => {
-          this.courseItems = data.map(({ id, name, date, length, description, isTopRated }) => ({
+        (data) => {
+          this.courseItems = data.map(({ id, name, date, length, description, isTopRated, authors }) => ({
             id: String(id),
             title: name,
             creationDate: date,
             description,
             duration: length,
             stared: isTopRated,
+            authors
           }))
         }
       )
@@ -47,8 +48,13 @@ export class CoursesListComponent implements OnInit {
 
   deleteCourse(courseId: string): void {
     if (!confirm("Do you really want to delete the course?")) return;
-    this.coursesService.deleteItem(courseId);
-    this.refresh();
+    this.coursesService
+      .deleteItem(courseId)
+      .subscribe(
+        () => {
+          this.refresh();
+        }
+      );
   }
 
   handleLoadMore(event: Event): void {

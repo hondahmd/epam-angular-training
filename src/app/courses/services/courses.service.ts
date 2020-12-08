@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { CourseInterface, BECoursesInterface } from '../models/course-interface';
-import {coursesData} from '../courses-data';
+import { BECoursesInterface } from '../models/course-interface';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -11,8 +10,6 @@ import { environment } from '../../../environments/environment';
 })
 export class CoursesService {
   constructor(private http: HttpClient) {}
-
-  private items = coursesData; //Initial value
 
   getItems(countOfCourses: number, filter: string): Observable<BECoursesInterface[]> {
     const params = {
@@ -23,28 +20,19 @@ export class CoursesService {
     return this.http.get<BECoursesInterface[]>(environment.apiUrl + '/courses', { params });
   }
 
-  getItemById(id: string): CourseInterface {
-    return this.items.find(item => item.id === id);
+  getItemById(id: string): Observable<BECoursesInterface> {
+    return this.http.get<BECoursesInterface>(environment.apiUrl + `/courses/${id}`);
   }
 
-  createItem(data: CourseInterface) {
-    let maxId = 0;
-    this.items.forEach(item => {
-      if (+item.id > maxId) {
-        maxId = +item.id;
-      }
-    });
-    data.id = (maxId + 1) + '';
-    const newItems = [...this.items];
-    newItems.push(data);
-    this.items = newItems;
+  createItem(data: BECoursesInterface): Observable<BECoursesInterface> {
+    return this.http.post<BECoursesInterface>(environment.apiUrl + '/courses', data)
   }
 
-  updateItem(data: CourseInterface) {
-    this.items = this.items.map(item => item.id === data.id ? data : item);
+  updateItem(data: BECoursesInterface): Observable<BECoursesInterface> {
+    return this.http.patch<BECoursesInterface>(environment.apiUrl + `/courses/${data.id}`, data)
   }
 
   deleteItem(id: string) {
-    this.items = this.items.filter(item => item.id !== id);
+    return this.http.delete(environment.apiUrl + `/courses/${id}`);
   }
 }
