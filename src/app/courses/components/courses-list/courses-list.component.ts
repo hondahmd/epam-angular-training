@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { CourseInterface } from '../../models/course-interface';
-import { OrderByPipe } from '../../pipes/order-by.pipe';
-import {BreadcrumbInterface} from '../../../shared/models/breadcrumb-interface';
-import {FilterPipe} from '../../pipes/filter.pipe';
+import { BreadcrumbInterface } from '../../../shared/models/breadcrumb-interface';
 
 @Component({
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss'],
-  providers: [
-    OrderByPipe,
-    FilterPipe,
-  ]
 })
 export class CoursesListComponent implements OnInit {
   breadcrumbs: BreadcrumbInterface[] = [
-    {text: 'Courses'}
+    { text: 'Courses' }
   ];
+
+  courseAddStep: number = 3;
+
+  countOfCourses: number = this.courseAddStep;
 
   filter: string;
 
   constructor(
     private coursesService: CoursesService,
-    private orderByPipe: OrderByPipe,
-    private filterPipe: FilterPipe
   ) { }
 
   public courseItems: CourseInterface[] = [];
@@ -33,8 +29,20 @@ export class CoursesListComponent implements OnInit {
   }
 
   refresh() {
-    const filtered = this.filterPipe.transform(this.coursesService.getItems(), this.filter);
-    this.courseItems = this.orderByPipe.transform(filtered);
+    this.coursesService
+      .getItems(this.countOfCourses, this.filter)
+      .subscribe(
+        data => {
+          this.courseItems = data.map(({ id, name, date, length, description, isTopRated }) => ({
+            id: String(id),
+            title: name,
+            creationDate: date,
+            description,
+            duration: length,
+            stared: isTopRated,
+          }))
+        }
+      )
   }
 
   deleteCourse(courseId: string): void {
@@ -45,7 +53,8 @@ export class CoursesListComponent implements OnInit {
 
   handleLoadMore(event: Event): void {
     event.preventDefault();
-    console.log('load more');
+    this.countOfCourses += this.courseAddStep;
+    this.refresh();
   }
 
   search(text: string) {
