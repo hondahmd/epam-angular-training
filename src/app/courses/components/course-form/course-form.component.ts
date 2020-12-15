@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbInterface } from '../../../shared/models/breadcrumb-interface';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { LoadingStatusService } from '../../../shared/services/loading-status.service';
+import { BreadcrumbInterface } from '../../../shared/models/breadcrumb-interface';
 import { BECoursesInterface, CourseInterface } from '../../models/course-interface';
 import { CoursesService } from '../../services/courses.service';
 
@@ -27,15 +29,26 @@ export class CourseFormComponent implements OnInit {
     }
   };
 
+  loadingStatus = {
+    all: false,
+    courseById: false,
+    edit: false,
+  }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private service: CoursesService,
+    private loadingStatusService: LoadingStatusService,
   ) { }
 
   ngOnInit(): void {
+    this.loadingStatusService.getCourseByIdStatus().subscribe((status) => this.updateLoadingStatus(status, 'courseById'));
+    this.loadingStatusService.getEditCourseStatus().subscribe((status) => this.updateLoadingStatus(status, 'edit'));
+
     const id = this.route.snapshot.paramMap.get('id'); //Param from path (:id)
     if (id) {
+      this.loadingStatusService.getCourseByIdStatus().next(true);
       this.service
         .getItemById(id)
         .subscribe(({ id, name, date, length, description, isTopRated, authors }) => {
@@ -49,8 +62,17 @@ export class CourseFormComponent implements OnInit {
             authors
           };
           this.breadcrumbs[1].text = 'Edit';
+          this.loadingStatusService.getCourseByIdStatus().next(false);
         })
     }
+  }
+
+  updateLoadingStatus(status, attr) {
+    this.loadingStatus[attr] = status;
+    this.loadingStatus.all = Object.keys(this.loadingStatus).reduce((acc, cur) => {
+      if (cur === 'all') return acc;
+      else return acc || this.loadingStatus[cur];
+    }, false)
   }
 
   handleCancel() {
@@ -68,6 +90,7 @@ export class CourseFormComponent implements OnInit {
       isTopRated: stared,
       authors,
     };
+    this.loadingStatusService.getEditCourseStatus().next(true);
     if (id) {
       this.service
         .updateItem(newCourseInfo)
@@ -83,6 +106,7 @@ export class CourseFormComponent implements OnInit {
           (error) => alert(error.message || 'Error'),
         );
     }
+    this.loadingStatusService.getEditCourseStatus().next(false);
     this.gotoCourses();
   }
 

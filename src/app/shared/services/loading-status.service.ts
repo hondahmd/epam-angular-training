@@ -5,11 +5,31 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoadingStatusService {
-  loginStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor() { }
 
+  loginStatus: Subject<boolean> = new Subject<boolean>();
   getLoginStatus() {
     return this.loginStatus;
+  }
+
+  coursesStatus: Subject<boolean> = new Subject<boolean>();
+  getCoursesStatus() {
+    return this.coursesStatus;
+  }
+
+  deleteCourseStatus: Subject<boolean> = new Subject<boolean>();
+  getDeleteCourseStatus() {
+    return this.deleteCourseStatus;
+  }
+
+  courseByIdStatus: Subject<boolean> = new Subject<boolean>();
+  getCourseByIdStatus() {
+    return this.courseByIdStatus;
+  }
+
+  editCourseStatus: Subject<boolean> = new Subject<boolean>();
+  getEditCourseStatus() {
+    return this.courseByIdStatus;
   }
 }
