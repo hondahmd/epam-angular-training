@@ -26,20 +26,8 @@ export class LoginComponent implements OnInit {
         password: this.password,
       })
       .subscribe(
-        (data) => {
-          this.authService
-            .fetchUserInfo(data.token)
-            .subscribe((data) => {
-              const { id, name, fakeToken, password } = data;
-              this.authService.setUserInfo({
-                id: String(id),
-                password,
-                token: fakeToken,
-                name: `${name.first} ${name.last}`
-              })
-              this.router.navigate(['/']);
-            });
-        },
-        (error) => { alert(error.message || 'Error') });
+        () => this.router.navigate(['/']),
+        (error) => alert(error.message || 'Error')
+      );
   }
 }
