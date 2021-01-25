@@ -1,4 +1,3 @@
 <div class="input-group col-4 mb-3">
-  <input type="text" [(ngModel)]="text" placeholder="Text to search" class="form-control" />
-  <button type="button" (click)="onClick()" class="ml-1 btn btn-success">Search</button>
+  <input type="text" [(ngModel)]="text" placeholder="Text to search" class="form-control" (keyup)="onKeyUp()" />
 </div>
