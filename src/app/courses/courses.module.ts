@@ -10,6 +10,7 @@ import { BorderDirective } from './directives/border/border.directive';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
 import {CourseFormComponent} from './components/course-form/course-form.component';
+import {CoursesRoutingModule} from './courses-routing.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {CourseFormComponent} from './components/course-form/course-form.componen
     RouterModule,
     FormsModule,
     SharedModule,
+    CoursesRoutingModule,
   ],
   exports: [
   ]

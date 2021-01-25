@@ -53,18 +53,8 @@ export class CoursesListComponent implements OnInit {
     this.coursesService
       .getItems(this.countOfCourses, this.filter)
       .subscribe(
-        (data) => {
-          this.loadingStatusService.getCoursesStatus().next(false);
-          this.courseItems = data.map(({ id, name, date, length, description, isTopRated, authors }) => ({
-            id: String(id),
-            title: name,
-            creationDate: date,
-            description,
-            duration: length,
-            stared: isTopRated,
-            authors
-          }))
-        }
+        (data) => this.courseItems = data,
+        error => alert(error.message || 'Error'),
       )
   }
 
@@ -73,9 +63,8 @@ export class CoursesListComponent implements OnInit {
     this.coursesService
       .deleteItem(courseId)
       .subscribe(
-        () => {
-          this.refresh();
-        }
+        () => this.refresh(),
+        error => alert(error.message || 'Error'),
       );
   }
 

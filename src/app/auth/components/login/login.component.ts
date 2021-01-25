@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
         password: this.password,
       })
       .subscribe(
-        fetchUserInfo,
-        (error) => { alert(error.message || 'Error') }
+        () => this.router.navigate(['/']),
+        (error) => alert(error.message || 'Error')
       );
   }
 }

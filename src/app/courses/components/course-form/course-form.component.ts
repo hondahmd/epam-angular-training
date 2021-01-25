@@ -51,16 +51,8 @@ export class CourseFormComponent implements OnInit {
       this.loadingStatusService.getCourseByIdStatus().next(true);
       this.service
         .getItemById(id)
-        .subscribe(({ id, name, date, length, description, isTopRated, authors }) => {
-          this.model = {
-            id: String(id),
-            title: name,
-            creationDate: date,
-            description,
-            duration: length,
-            stared: isTopRated,
-            authors
-          };
+        .subscribe(data => {
+          this.model = data;
           this.breadcrumbs[1].text = 'Edit';
           this.loadingStatusService.getCourseByIdStatus().next(false);
         })
@@ -80,34 +72,21 @@ export class CourseFormComponent implements OnInit {
   }
 
   handleSave() {
-    const { id, title, creationDate, duration, description, stared, authors } = this.model;
-    const newCourseInfo: BECoursesInterface = {
-      id: Number(id),
-      name: title,
-      date: creationDate,
-      length: duration,
-      description,
-      isTopRated: stared,
-      authors,
-    };
-    this.loadingStatusService.getEditCourseStatus().next(true);
-    if (id) {
+    if (this.model.id) {
       this.service
-        .updateItem(newCourseInfo)
+        .updateItem(this.model)
         .subscribe(
           () => this.gotoCourses(),
           (error) => alert(error.message || 'Error'),
         );
     } else {
       this.service
-        .createItem(newCourseInfo)
+        .createItem(this.model)
         .subscribe(
           () => this.gotoCourses(),
           (error) => alert(error.message || 'Error'),
         );
     }
-    this.loadingStatusService.getEditCourseStatus().next(false);
-    this.gotoCourses();
   }
 
   private gotoCourses() {
